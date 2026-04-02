@@ -1,0 +1,13 @@
+{
+  "name": "hertzway-rentals",
+  "version": "1.0.0",
+  "description": "Car rental web app - React frontend + Express backend",
+  "scripts": {
+    "dev": "npm run dev --prefix client",
+    "server": "npm start --prefix server",
+    "start": "npm start --prefix server"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

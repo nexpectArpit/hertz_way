@@ -1,0 +1,417 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f4f6f9;
+    color: #333;
+}
+
+body.agency-bg {
+    background: url('/img/car_rental_bg_wallpaper.jpg') center center / cover no-repeat fixed;
+}
+
+body.customer-bg {
+    background: url('/img/car_book_bg_wallpaper.jpg') center center / cover no-repeat fixed;
+}
+
+body.auth-bg {
+    background: url('/img/login-register_page.jpg') center center / cover no-repeat fixed;
+}
+
+body.agency-bg::before,
+body.customer-bg::before,
+body.auth-bg::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+    z-index: 0;
+    pointer-events: none;
+}
+
+body.agency-bg .container,
+body.customer-bg .container,
+body.auth-bg .container,
+body.agency-bg .hero,
+body.customer-bg .hero,
+body.auth-bg .auth-page {
+    position: relative;
+    z-index: 1;
+}
+
+/* fix #2 issue 5 - hero needs z-index too */
+.hero {
+    position: relative;
+}
+
+nav {
+    position: relative;
+    z-index: 2;
+    background: rgba(15, 15, 30, 0.88);
+    padding: 14px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    backdrop-filter: blur(4px);
+}
+
+body.agency-bg nav {
+    background: rgba(20, 10, 5, 0.82);
+    border-bottom: 1px solid rgba(200, 120, 40, 0.3);
+}
+
+body.customer-bg nav {
+    background: rgba(5, 15, 35, 0.82);
+    border-bottom: 1px solid rgba(60, 130, 220, 0.3);
+}
+
+body.auth-bg nav {
+    background: rgba(10, 10, 18, 0.85);
+    border-bottom: 1px solid rgba(180, 180, 200, 0.2);
+}
+
+nav .logo {
+    color: #e94560;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+body.agency-bg nav .logo { color: #f0a500; }
+body.customer-bg nav .logo { color: #5aacff; }
+body.auth-bg nav .logo { color: #c8a96e; }
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+nav ul li a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav ul li a:hover { color: #fff; }
+
+/* fix #2 - nav logout button */
+nav ul li button {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0;
+}
+
+nav ul li button:hover { color: #fff; }
+
+/* fix #3 - greeting span */
+nav ul li .greeting {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.container {
+    max-width: 960px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+}
+
+body.agency-bg .card,
+body.customer-bg .card,
+body.auth-bg .card {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.35);
+}
+
+/* fix #7 - h2 on dark bg pages */
+body.agency-bg h2,
+body.customer-bg h2 {
+    color: #fff;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+
+body.agency-bg .card h2,
+body.customer-bg .card h2,
+body.auth-bg .card h2 {
+    color: #1a1a2e;
+    text-shadow: none;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+    color: #1a1a2e;
+}
+
+.form-group {
+    margin-bottom: 16px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #e94560;
+}
+
+.btn {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn-primary { background: #e94560; color: #fff; }
+.btn-primary:hover { background: #c73652; }
+
+body.agency-bg .btn-primary { background: #d4820a; }
+body.agency-bg .btn-primary:hover { background: #b36d08; }
+
+body.customer-bg .btn-primary { background: #1a6fc4; }
+body.customer-bg .btn-primary:hover { background: #155da0; }
+
+body.auth-bg .btn-primary { background: #b8922a; }
+body.auth-bg .btn-primary:hover { background: #9a7820; }
+
+.btn-secondary { background: #1a1a2e; color: #fff; }
+.btn-sm { padding: 6px 14px; font-size: 13px; }
+
+/* fix #4 - alerts: block by default in React since they're conditionally rendered */
+.alert {
+    padding: 10px 14px;
+    border-radius: 5px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+body.auth-bg .tab-btn {
+    border-color: #b8922a;
+    color: #7a5c10;
+}
+
+body.auth-bg .tab-btn.active {
+    background: #b8922a;
+    color: #fff;
+    border-color: #b8922a;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    min-width: 700px;
+}
+
+table th {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 10px 12px;
+    text-align: left;
+    white-space: nowrap;
+}
+
+body.agency-bg table th { background: #7a4500; }
+body.customer-bg table th { background: #0d3d6e; }
+
+table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+}
+
+table tr:hover td { background: #f9f9f9; }
+
+.pw-wrap { position: relative; }
+.pw-wrap input { padding-right: 50px; }
+
+.pw-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #888;
+    font-size: 13px;
+    padding: 0;
+}
+
+.car-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.car-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+body.customer-bg .car-card {
+    background: rgba(255, 255, 255, 0.93);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+.car-card h3 {
+    font-size: 17px;
+    margin-bottom: 10px;
+    color: #1a1a2e;
+}
+
+.car-card p {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 6px;
+}
+
+.car-card .price {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a6fc4;
+    margin: 10px 0;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.55);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal {
+    background: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    width: 400px;
+    max-width: 90%;
+}
+
+.modal h3 { margin-bottom: 16px; }
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+}
+
+.tab-btn {
+    padding: 8px 20px;
+    border: 2px solid #1a1a2e;
+    background: transparent;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a2e;
+}
+
+.tab-btn.active {
+    background: #1a1a2e;
+    color: #fff;
+}
+
+.hero {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 38px;
+    color: #1a1a2e;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #555;
+    margin-bottom: 28px;
+    font-size: 16px;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+body.agency-bg .hero h1,
+body.customer-bg .hero h1 {
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+body.agency-bg .hero p,
+body.customer-bg .hero p {
+    color: #ddd;
+}
+
+/* fix #9 - loading screen */
+.loading-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    font-size: 15px;
+    color: #888;
+}
