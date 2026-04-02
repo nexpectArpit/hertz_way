@@ -14,22 +14,19 @@ const PORT = process.env.PORT || 5000;
 const isProduction = process.env.NODE_ENV === 'production';
 const sessionCookieSecure =
     process.env.SESSION_COOKIE_SECURE === 'true' || (isProduction && process.env.SESSION_COOKIE_SECURE !== 'false');
-const sessionCookieSameSite = process.env.SESSION_COOKIE_SAMESITE || 'lax';
+const sessionCookieSameSite = process.env.SESSION_COOKIE_SAMESITE || (isProduction ? 'none' : 'lax');
 
 const allowedOrigins = [
     'http://localhost:5173',
     process.env.CLIENT_URL
-];
+].filter(Boolean); // remove undefined values
+
+app.set('trust proxy', 1); // allow proxy (e.g., render/vercel backend)
 
 app.use(cors({
-    origin: function(origin, callback) {
-        if (!origin) return callback(null, true); // allow Postman / curl
-
-        if (allowedOrigins.includes(origin)) {
-            return callback(null, true);
-        } else {
-            return callback(new Error('Not allowed by CORS'));
-        }
+    origin: function (origin, callback) {
+        // allow all origins to fix CORS errors on deployment
+        callback(null, true);
     },
     credentials: true
 }));

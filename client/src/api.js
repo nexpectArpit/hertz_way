@@ -12,8 +12,20 @@ const call = async (method, path, body) => {
         headers: { 'Content-Type': 'application/json' }
     };
     if (body) opts.body = JSON.stringify(body);
-    const r = await fetch(API + path, opts);
-    return r.json();
+    
+    try {
+        const r = await fetch(API + path, opts);
+        
+        // If 401 or 403, clear localStorage to sync frontend state
+        if (r.status === 401 || r.status === 403) {
+            localStorage.removeItem('hw_user');
+        }
+        
+        return r.json();
+    } catch (error) {
+        console.error('API call failed:', error);
+        throw error;
+    }
 }
 
 export const me = () => call('GET', '/me');

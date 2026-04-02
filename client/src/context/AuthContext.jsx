@@ -18,10 +18,16 @@ export function AuthProvider({ children }) {
 
     useEffect(() => {
         me().then(d => {
-            d.loggedIn ? setUser(d.user) : setUser(null);
+            if (d.loggedIn) {
+                setUser(d.user);
+            } else {
+                // Backend says not logged in, clear frontend state
+                setUser(null);
+            }
             setLoading(false);
         }).catch((e) => {
-            // console.log('auth check failed', e);
+            console.log('auth check failed', e);
+            // On error, clear state to be safe
             setUser(null);
             setLoading(false);
         });

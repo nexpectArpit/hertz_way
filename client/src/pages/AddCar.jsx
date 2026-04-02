@@ -42,7 +42,14 @@ export default function AddCar() {
             setForm(empty);
             myCars().then(d => Array.isArray(d) && setCars(d));
         } else {
-            setMsg({ text: res.error, type: 'error' });
+            // Check if it's an auth error
+            if (res.error === 'Access denied') {
+                setMsg({ text: 'Session expired. Please login again.', type: 'error' });
+                // Optionally redirect to login after a delay
+                setTimeout(() => window.location.href = '/login', 2000);
+            } else {
+                setMsg({ text: res.error, type: 'error' });
+            }
         }
     }
 
