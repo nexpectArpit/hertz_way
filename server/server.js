@@ -16,8 +16,21 @@ const sessionCookieSecure =
     process.env.SESSION_COOKIE_SECURE === 'true' || (isProduction && process.env.SESSION_COOKIE_SECURE !== 'false');
 const sessionCookieSameSite = process.env.SESSION_COOKIE_SAMESITE || 'lax';
 
+const allowedOrigins = [
+    'http://localhost:5173',
+    process.env.CLIENT_URL
+];
+
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: function(origin, callback) {
+        if (!origin) return callback(null, true); // allow Postman / curl
+
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        } else {
+            return callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }));
 
